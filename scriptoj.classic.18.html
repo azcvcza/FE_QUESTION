@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="http://scriptoj.mangojuice.top/problems/18">question target</a>
+</body>
+<script>
+    /*
+                        完成函数 commafy，
+                        它接受一个数字作为参数，
+                        返回一个字符串，
+                        可以把整数部分从右到左每三位数添加一个逗号，
+                        如：12000000.11 转化为 12,000,000.11。
+                        */
+
+    function commafy(num) {
+        const arr = num.toString().split('.');
+        let result = arr[0].split('').reverse().reduce((pre, next, index) => {
+            if (index % 3 !== 0 || next === '-') {
+                return pre = ''.concat(next, pre)
+            } else {
+                return pre = ''.concat(next, ',', pre)
+            }
+        })
+        let right = arr[1]
+        return right ? ''.concat(result, '.', right) : ''.concat(result)
+
+    }
+    commafy(12000000.11)
+    commafy(-10000.33)
+</script>
+
+</html>
