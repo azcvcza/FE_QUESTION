@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="http://scriptoj.mangojuice.top/problems/24">const counter1 = plusFor('小明')
+		counter1() // => 为小明+1s
+		counter1() // => 为小明+2s
+		counter1() // => 为小明+3s
+		...
+		
+		const counter2 = plusFor('李梅')
+		counter2() // => 为李梅+1s
+		counter2() // => 为李梅+2s
+		counter2() // => 为李梅+3s</a>
+</body>
+<script>
+    const plusFor = function(str) {
+            var counter = 0;
+            return (
+
+                function plus(x) {
+                    counter++;
+                    return ("为" + str + "+" + counter + "s");
+                }
+            )
+        }
+        //plusFor('xxx');
+</script>
+
+</html>
