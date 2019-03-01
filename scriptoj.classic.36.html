@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    class EventEmitter {
+        constructor() {
+            this.listenerobj = {};
+        }
+
+        on(funcname, listener) {
+            if (!this.listenerobj[funcname]) {
+                this.listenerobj[funcname] = [];
+            }
+            this.listenerobj[funcname].push(listener);
+        }
+        emit(funcname, ...args) {
+            this.listenerobj[funcname].forEach((item, idx) => {
+                item(...args);
+            });
+        }
+        off(funcname, targetlistener) {
+            this.listenerobj[funcname].splice(this.listenerobj[funcname].indexOf(targetlistener), 1);
+        }
+    }
+
+    class EventEmitter {
+        /* TODO */
+        constructor() {
+            this.eventlist = {};
+        }
+        on(event, handler) {
+            if (!this.eventlist[event]) {
+                this.eventlist[event] = [];
+            }
+            this.eventlist[event].push(handler);
+            console.log("after on:", this.eventlist[event]);
+            return;
+        }
+        off(event, handler) {
+            if (!this.eventlist[event]) {
+                console.log("no such event");
+                return;
+            }
+            console.log("before remove:", this.eventlist[event])
+            for (var i = 0; i < this.eventlist[event].length; i++) {
+                if (this.eventlist[event][i].toString() == handler.toString()) {
+                    this.eventlist[event].splice(i, 1);
+                }
+            }
+            console.log("after remove:", this.eventlist[event])
+            return;
+        }
+        emit(event, arg) {
+            if (!this.eventlist[event]) {
+                console.log("no such event ,can't trigger");
+                return;
+            }
+            var func = this.eventlist[event];
+            for (var i = 0; i < func.length; i++) {
+                var fn = func[i];
+
+                if (arg.length && typeof(arg) == 'Array') {
+                    for (var j = 0; j < arg.length; j++) {
+                        fn(arg[j])
+                    }
+                }
+                fn(arg);
+
+            }
+        }
+    }
+
+
+
+
+    const emitter = new EventEmitter()
+    const sayHi = (name) => console.log(`Hello ${name}`)
+    const sayHi2 = (name) => console.log(`Good night, ${name}`)
+
+    emitter.on('hi', sayHi)
+    emitter.on('hi', sayHi2)
+    emitter.emit('hi', 'ScriptOJ')
+        // => Hello ScriptOJ
+        // => Good night, ScriptOJ
+
+    emitter.off('hi', sayHi)
+    emitter.emit('hi', 'ScriptOJ')
+        // => Good night, ScriptOJ
+
+    const emitter2 = new EventEmitter()
+    emitter2.on('hi', (name, age) => {
+        console.log(`I am ${name}, and I am ${age} years old`)
+    })
+    emitter2.emit('hi', 'Jerry', 12)
+</script>
+
+</html>
